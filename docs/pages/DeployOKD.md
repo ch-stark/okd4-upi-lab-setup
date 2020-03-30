@@ -70,16 +70,16 @@ I have provided a set of utility scripts to automate a lot of the tasks associat
 
 1. Retrieve the `oc` command.  We're going to grab an older version of `oc`, but that's OK.  We just need it to retrieve to current versions of `oc` and `openshift-install`
 
-    Go to: `https://github.com/openshift/okd/releases/tag/4.4.0-0.okd-2020-01-28-022517` and retrieve the `openshift-client-linux-4.4.0-0.okd-2020-01-28-022517.tar.gz` archive.
+    Go to: `https://github.com/openshift/okd/releases/tag/4.4.0-0.okd-2020-03-28-092308` and retrieve the `openshift-client-linux-4.4.0-0.okd-2020-03-28-092308.tar.gz` archive.
 
-       wget https://github.com/openshift/okd/releases/download/4.4.0-0.okd-2020-01-28-022517/openshift-client-linux-4.4.0-0.okd-2020-01-28-022517.tar.gz
+       wget https://github.com/openshift/okd/releases/download/4.4.0-0.okd-2020-03-28-092308/openshift-client-linux-4.4.0-0.okd-2020-03-28-092308.tar.gz
 
 1. Uncompress the archive and move the `oc` executable to your ~/bin directory.  Make sure ~/bin is in your path.
 
-       tar -xzf openshift-client-linux-4.4.0-0.okd-2020-01-28-022517.tar.gz
+       tar -xzf openshift-client-linux-4.4.0-0.okd-2020-03-28-092308.tar.gz
        mv oc ~/bin
 
-    The `DeployOkdNodes.sh` script will pull the correct version of `oc` and `openshift-install` when we run it.  It will over-write older versions in `~/bin`.
+    The `DeployOkdNodes.sh` script will pull the a newer version of `oc` and `openshift-install` when we run it, if we are using a newer version than the Beta.  It will over-write older versions in `~/bin`.
 
 1. Now, we need a couple of pull secrets.  
 
@@ -129,9 +129,9 @@ I have provided a set of utility scripts to automate a lot of the tasks associat
 
     ![OKD Release](images/OKD-Release.png)
 
-    Select the most recent 4.4.0-0.okd release that is in a Phase of `Accepted`, and copy the release name into an environment variable:
+    Select the most recent 4.4.0-0.okd release that is in a Phase of `Accepted`, and copy the release name into an environment variable: __Note: If you want the Beta 1 version, then use the command below as is.__
 
-       export OKD_RELEASE=4.4.0-0.okd-2020-03-23-073327
+       export OKD_RELEASE=4.4.0-0.okd-2020-03-28-092308
 
 1. The next step is to prepare our install-config.yaml file that `openshift-install` will use to create the `ignition` files for bootstrap, master, and worker nodes.
 
@@ -262,7 +262,7 @@ I have provided a set of utility scripts to automate a lot of the tasks associat
        imageContentSources:
        - mirrors:
          - nexus.oscluster.clgcom.org:5002/origin
-         source: registry.svc.ci.openshift.org/origin/4.4-2020-03-13-191636
+         source: registry.svc.ci.openshift.org/origin/4.4-2020-03-28-092308
        - mirrors:
          - nexus.oscluster.clgcom.org:5002/origin
          source: registry.svc.ci.openshift.org/origin/release
@@ -278,7 +278,7 @@ I have provided a set of utility scripts to automate a lot of the tasks associat
          repositoryDigestMirrors:
          - mirrors:
            - nexus.oscluster.clgcom.org:5002/origin
-           source: registry.svc.ci.openshift.org/origin/4.4-2020-03-13-191636
+           source: registry.svc.ci.openshift.org/origin/4.4-2020-03-28-092308
          - mirrors:
            - nexus.oscluster.clgcom.org:5002/origin
            source: registry.svc.ci.openshift.org/origin/release
@@ -304,7 +304,7 @@ I have provided a set of utility scripts to automate a lot of the tasks associat
        imageContentSources:
        - mirrors:
          - nexus.oscluster.clgcom.org:5002/origin
-         source: registry.svc.ci.openshift.org/origin/4.4-2020-03-13-191636
+         source: registry.svc.ci.openshift.org/origin/4.4-2020-03-28-092308
        - mirrors:
          - nexus.oscluster.clgcom.org:5002/origin
          source: registry.svc.ci.openshift.org/origin/release
