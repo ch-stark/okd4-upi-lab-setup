@@ -15,6 +15,18 @@ case $i in
     GUEST_ROLE="${i#*=}"
     shift
     ;;
+    -c=*|--cpu=*)
+    CPU="${i#*=}"
+    shift
+    ;;
+    -m=*|--memory=*)
+    MEMORY="${i#*=}"
+    shift
+    ;;
+    -d=*|--disk=*)
+    DISK="${i#*=}"
+    shift
+    ;;
     -v=*|--vbmc=*)
     VBMC_PORT="${i#*=}"
     shift
@@ -33,7 +45,7 @@ IP_01=$(dig ${HOSTNAME}.${LAB_DOMAIN} +short)
 
 # Create the VM
 ssh root@${HOST_NODE}.${LAB_DOMAIN} "mkdir -p /VirtualMachines/${HOSTNAME}"
-ssh root@${HOST_NODE}.${LAB_DOMAIN} "virt-install --print-xml 1 --name ${HOSTNAME} --memory 4096 --vcpus 2 --boot=hd,network,menu=on,useserial=on --disk size=50,path=/VirtualMachines/${HOSTNAME}/rootvol,bus=sata --network bridge=br0 --graphics none --noautoconsole --os-variant centos7.0 > /VirtualMachines/${HOSTNAME}.xml"
+ssh root@${HOST_NODE}.${LAB_DOMAIN} "virt-install --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on --disk size=${DISK},path=/VirtualMachines/${HOSTNAME}/rootvol,bus=sata --network bridge=br0 --graphics none --noautoconsole --os-variant centos7.0 > /VirtualMachines/${HOSTNAME}.xml"
 ssh root@${HOST_NODE}.${LAB_DOMAIN} "virsh define /VirtualMachines/${HOSTNAME}.xml"
 
 # Get the MAC address for eth0 in the new VM  
