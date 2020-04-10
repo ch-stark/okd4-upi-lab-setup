@@ -20,11 +20,12 @@ spec:
     enabled: true
     rulesNamespace: rook-ceph
   network:
-    hostNetwork: false
   rbdMirroring:
     workers: 0
   crashCollector:
     disable: false
+  cleanupPolicy:
+    deleteDataDirOnHosts: ""
   placement:
     all:
       nodeAffinity:
@@ -92,7 +93,7 @@ spec:
         config:
           osdsPerDevice: "1"
   disruptionManagement:
-    managePodBudgets: true
+    managePodBudgets: false
     osdMaintenanceTimeout: 30
-    manageMachineDisruptionBudgets: true
+    manageMachineDisruptionBudgets: false
     machineDisruptionBudgetNamespace: openshift-machine-api
