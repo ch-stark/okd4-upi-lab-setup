@@ -80,17 +80,17 @@ spec:
       devices:
       - name: "sdb"
         config:
-          osdsPerDevice: "5"
+          osdsPerDevice: "1"
     - name: "okd4-worker-1.%%LAB_DOMAIN%%"
       devices:
       - name: "sdb"
         config:
-          osdsPerDevice: "5"
+          osdsPerDevice: "1"
     - name: "okd4-worker-2.%%LAB_DOMAIN%%"
       devices:
       - name: "sdb"
         config:
-          osdsPerDevice: "5"
+          osdsPerDevice: "1"
   disruptionManagement:
     managePodBudgets: true
     osdMaintenanceTimeout: 30
