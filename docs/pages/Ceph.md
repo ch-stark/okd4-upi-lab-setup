@@ -13,3 +13,4 @@
     oc apply -f ${OKD4_LAB_PATH}/ceph/common.yml
     oc apply -f ${OKD4_LAB_PATH}/ceph/operator-openshift.yml
     oc apply -f ${OKD4_LAB_PATH}/ceph/cluster.yml
+    oc apply -f ${OKD4_LAB_PATH}/ceph/ceph-storage-class.yml
