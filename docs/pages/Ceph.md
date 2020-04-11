@@ -15,13 +15,27 @@
     oc apply -f ${OKD4_LAB_PATH}/ceph/cluster.yml
     oc apply -f ${OKD4_LAB_PATH}/ceph/ceph-storage-class.yml
 
+    oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"managementState":"Removed"}}'
+
+    oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"managementState":"Managed","storage":{"persistentVolumeClaim":{"claimName":"registry-pvc"}}}}'
 
 
+
+
+
+
+oc -n rook-ceph get pod -l app=rook-ceph-osd-prepare
+
+
+oc get -n rook-ceph cephblockpool
 oc create -f toolbox.yaml
 oc -n rook-ceph get pod -l "app=rook-ceph-tools"
 oc -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash
 
 
 
+oc delete -n rook-ceph cephblockpool replicapool --force
+oc describe -n rook-ceph cephblockpool replicapool
+kubectl -n rook-ceph patch cephblockpool replicapool --type merge -p '{"metadata":{"finalizers": [null]}}'
 
 oc -n rook-ceph delete deployment rook-ceph-tools
